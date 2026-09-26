@@ -32,8 +32,14 @@ Settings {
                 darkcolorScheme = "Dracula"
             schemesVersion = 1
         }
+        // v2: solid by default (the old 0.4 turned the light scheme grey over the wallpaper)
+        if (schemesVersion < 2) {
+            if (Math.abs(opacity - 0.4) < 0.001)
+                opacity = 1.0
+            schemesVersion = 2
+        }
     }
 
-    property double opacity: 0.4
+    property double opacity: 1.0
     property bool blur: true
 }
