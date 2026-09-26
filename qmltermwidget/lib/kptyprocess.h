@@ -142,9 +142,10 @@ public:
 
 protected:
     /**
-     * @reimp
+     * Runs in the child process before exec() (installed through
+     * QProcess::setChildProcessModifier()).
      */
-    virtual void setupChildProcess();
+    virtual void childProcessSetup();
 
 private:
     Q_PRIVATE_SLOT(d_func(), void _k_onStateChanged(QProcess::ProcessState))

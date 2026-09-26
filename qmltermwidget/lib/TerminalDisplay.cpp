@@ -247,7 +247,7 @@ void TerminalDisplay::setVTFont(const QFont& f)
     //     this ensures the same handling for all platforms
     // but then there was revealed that various Linux distros
     // have this problem too...
-    font.setStyleStrategy(QFont::ForceIntegerMetrics);
+    // QFont::ForceIntegerMetrics is gone in Qt 6; metrics are rounded below instead.
 
     QFontMetrics metrics(font);
 
@@ -341,7 +341,7 @@ TerminalDisplay::TerminalDisplay(QQuickItem *parent)
   , _leftBaseMargin(4)
   , _topBaseMargin(1)
   , m_font("Monospace", 12)
-  , m_colorRole(QPalette::Background)
+  , m_colorRole(QPalette::Window)
   , m_full_cursor_height(false)
   , m_backgroundOpacity(0.4)
 {
@@ -1536,7 +1536,8 @@ int TerminalDisplay::textWidth(const int startColumn, const int length, const in
     int result = 0;
 
     for (int column = 0; column < length; column++) {
-        result += fm.horizontalAdvance(_image[loc(startColumn + column, line)].character);
+        const char32_t ucs = static_cast<char32_t>(_image[loc(startColumn + column, line)].character);
+        result += fm.horizontalAdvance(QString::fromUcs4(&ucs, 1));
     }
 
     return result;
@@ -1919,7 +1920,7 @@ void TerminalDisplay::mousePressEvent(QMouseEvent* ev)
             if (spot && spot->type() == Filter::HotSpot::Link)
                 spot->activate(QLatin1String("click-action"));
         }
-    } else if (ev->button() == Qt::MidButton) {
+    } else if (ev->button() == Qt::MiddleButton) {
         if (_mouseMarks || (ev->modifiers() & Qt::ShiftModifier))
             emitSelection(true,ev->modifiers() & Qt::ControlModifier);
         else
@@ -2003,7 +2004,7 @@ void TerminalDisplay::mouseMoveEvent(QMouseEvent* ev)
         int button = 3;
         if (ev->buttons() & Qt::LeftButton)
             button = 0;
-        if (ev->buttons() & Qt::MidButton)
+        if (ev->buttons() & Qt::MiddleButton)
             button = 1;
         if (ev->buttons() & Qt::RightButton)
             button = 2;
@@ -2043,7 +2044,7 @@ void TerminalDisplay::mouseMoveEvent(QMouseEvent* ev)
     if (_actSel == 0) return;
 
     // don't extend selection while pasting
-    if (ev->buttons() & Qt::MidButton)
+    if (ev->buttons() & Qt::MiddleButton)
         return;
 
     extendSelection(ev->pos());
@@ -2104,7 +2105,7 @@ void TerminalDisplay::extendSelection( const QPoint& position )
     if ( _wordSelectionMode ) {
         // Extend to word boundaries
         int i;
-        QChar selClass;
+        wchar_t selClass;
 
         bool left_not_right = ( here.y() < _iPntSelCorr.y() ||
            ( here.y() == _iPntSelCorr.y() && here.x() < _iPntSelCorr.x() ) );
@@ -2181,7 +2182,7 @@ void TerminalDisplay::extendSelection( const QPoint& position )
   if ( !_wordSelectionMode && !_lineSelectionMode )
   {
     int i;
-    QChar selClass;
+    wchar_t selClass;
 
     bool left_not_right = ( here.y() < _iPntSelCorr.y() ||
        ( here.y() == _iPntSelCorr.y() && here.x() < _iPntSelCorr.x() ) );
@@ -2297,9 +2298,9 @@ void TerminalDisplay::mouseReleaseEvent(QMouseEvent* ev)
 
   if ( !_mouseMarks &&
        ((ev->button() == Qt::RightButton && !(ev->modifiers() & Qt::ShiftModifier))
-                        || ev->button() == Qt::MidButton) )
+                        || ev->button() == Qt::MiddleButton) )
   {
-    emit mouseSignal( ev->button() == Qt::MidButton ? 1 : 2,
+    emit mouseSignal( ev->button() == Qt::MiddleButton ? 1 : 2,
                       charColumn + 1,
                       charLine + 1 +_scrollBar->value() -_scrollBar->maximum() ,
                       2);
@@ -2388,13 +2389,13 @@ void TerminalDisplay::mouseDoubleClickEvent(QMouseEvent* ev)
   _wordSelectionMode = true;
 
   // find word boundaries...
-  QChar selClass = charClass(_image[i].character);
+  wchar_t selClass = charClass(_image[i].character);
   {
     // find the start of the word
     int x = bgnSel.x();
     while ( ((x>0) || (bgnSel.y()>0 && (_lineProperties[bgnSel.y()-1] & LINE_WRAPPED) ))
-                    && (charClass(_image[i-1].character) == selClass || QChar( _image[i+1].character ) == QLatin1Char('\0') )
-        )//QChar( _image[i+1].character ) == QLatin1Char('\0'),2021-08-26,liwl,通过调整字符前边界增加双击复制时对中文的支持
+                    && (charClass(_image[i-1].character) == selClass || _image[i+1].character == 0 )
+        )//_image[i+1].character == 0,2021-08-26,liwl,通过调整字符前边界增加双击复制时对中文的支持
      {
        i--;
        if (x>0)
@@ -2413,8 +2414,8 @@ void TerminalDisplay::mouseDoubleClickEvent(QMouseEvent* ev)
     i = loc( endSel.x(), endSel.y() );
     x = endSel.x();
     while( ((x<_usedColumns-1) || (endSel.y()<_usedLines-1 && (_lineProperties[endSel.y()] & LINE_WRAPPED) ))
-                    && ( charClass(_image[i+1].character) == selClass || QChar( _image[i+1].character ) == QLatin1Char('\0') )
-            ) //QChar( _image[i+1].character ) == QLatin1Char('\0'),2021-08-26,liwl,通过调整字符后边界增加双击复制时对中文的支持
+                    && ( charClass(_image[i+1].character) == selClass || _image[i+1].character == 0 )
+            ) //_image[i+1].character == 0,2021-08-26,liwl,通过调整字符后边界增加双击复制时对中文的支持
      {
          i++;
          if (x<_usedColumns-1)
@@ -2526,7 +2527,7 @@ void TerminalDisplay::mouseTripleClickEvent(QMouseEvent* ev)
   if (_tripleClickMode == SelectForwardsFromCursor) {
     // find word boundary start
     int i = loc(_iPntSel.x(),_iPntSel.y());
-    QChar selClass = charClass(_image[i].character);
+    wchar_t selClass = charClass(_image[i].character);
     int x = _iPntSel.x();
 
     while ( ((x>0) ||
@@ -2573,14 +2574,17 @@ bool TerminalDisplay::focusNextPrevChild( bool next )
 }
 
 
-QChar TerminalDisplay::charClass(QChar qch) const
+wchar_t TerminalDisplay::charClass(wchar_t ch) const
 {
-    if ( qch.isSpace() ) return QLatin1Char(' ');
+    const char32_t ucs = static_cast<char32_t>(ch);
 
-    if ( qch.isLetterOrNumber() || _wordCharacters.contains(qch, Qt::CaseInsensitive ) )
-    return QLatin1Char('a');
+    if ( QChar::isSpace(ucs) ) return L' ';
 
-    return qch;
+    if ( QChar::isLetterOrNumber(ucs)
+         || _wordCharacters.contains(QString::fromUcs4(&ucs, 1), Qt::CaseInsensitive ) )
+    return L'a';
+
+    return ch;
 }
 
 void TerminalDisplay::setWordCharacters(const QString& wc)
@@ -3230,14 +3234,14 @@ void TerminalDisplay::setMargin(int i)
 
 // QMLTermWidget specific functions ///////////////////////////////////////////
 
-void TerminalDisplay::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
+void TerminalDisplay::geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry)
 {
     if (newGeometry != oldGeometry) {
         resizeEvent(NULL);
         update();
     }
 
-    QQuickPaintedItem::geometryChanged(newGeometry,oldGeometry);
+    QQuickPaintedItem::geometryChange(newGeometry,oldGeometry);
 }
 
 void TerminalDisplay::update(const QRegion &region)
@@ -3361,7 +3365,9 @@ void TerminalDisplay::simulateKeySequence(const QKeySequence &keySequence)
 
 void TerminalDisplay::simulateWheel(int x, int y, int buttons, int modifiers, QPointF angleDelta)
 {
-    QWheelEvent event(QPointF(x,y), angleDelta.y(), (Qt::MouseButton) buttons, (Qt::KeyboardModifier) modifiers);
+    QWheelEvent event(QPointF(x,y), mapToGlobal(QPointF(x,y)), QPoint(), angleDelta.toPoint(),
+                      (Qt::MouseButtons) buttons, (Qt::KeyboardModifiers) modifiers,
+                      Qt::NoScrollPhase, false);
     wheelEvent(&event);
 }
 

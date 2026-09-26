@@ -45,7 +45,6 @@
 // Qt
 #include <QEvent>
 #include <QKeyEvent>
-#include <QByteRef>
 
 // KDE
 //#include <kdebug.h>
@@ -416,10 +415,9 @@ void Vt102Emulation::processWindowAttributeChange()
     return;
   }
 
-  QString newValue;
-  newValue.reserve(tokenBufferPos-i-2);
-  for (int j = 0; j < tokenBufferPos-i-2; j++)
-    newValue[j] = tokenBuffer[i+1+j];
+  static_assert(sizeof(wchar_t) == sizeof(char32_t), "tokenBuffer must hold UCS-4 code points");
+  QString newValue = QString::fromUcs4(reinterpret_cast<const char32_t*>(tokenBuffer + i + 1),
+                                       tokenBufferPos-i-2);
 
   _pendingTitleUpdates[attributeToChange] = newValue;
   _titleUpdateTimer->start(20);
@@ -964,8 +962,8 @@ void Vt102Emulation::sendMouseEvent( int cb, int cx, int cy , int eventType )
             // coordinate+32, no matter what the locale is. We could easily
             // convert manually, but QString can also do it for us.
             QChar coords[2];
-            coords[0] = cx + 0x20;
-            coords[1] = cy + 0x20;
+            coords[0] = QChar(cx + 0x20);
+            coords[1] = QChar(cy + 0x20);
             QString coordsStr = QString(coords, 2);
             QByteArray utf8 = coordsStr.toUtf8();
             snprintf(command, sizeof(command), "\033[M%c%s", cb + 0x20, utf8.constData());
@@ -1245,7 +1243,7 @@ void Vt102Emulation::sendKeyEvent( QKeyEvent* origEvent )
             textToSend += "\033[6~";
         }
         else {
-            textToSend += _codec->fromUnicode(event->text());
+            textToSend += QByteArray(_encoder.encode(event->text()));
         }
 
         sendData( textToSend.constData() , textToSend.length() );

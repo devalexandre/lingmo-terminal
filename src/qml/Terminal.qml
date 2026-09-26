@@ -23,7 +23,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.12
 
-import LingmoUI 1.0 as LingmoUI
+import LingmoUI.CompatibleModule 3.0 as LingmoUI
 import Lingmo.TermWidget 1.0
 
 Page {
@@ -51,12 +51,12 @@ Page {
         //settings.colorschemes = _terminal.availableColorSchemes
     }
 
-    onUrlsDropped: {
+    onUrlsDropped: (urls) => {
         for (var i in urls)
             _session.sendText(urls[i].replace("file://", "") + " ")
     }
 
-    onKeyPressed: {
+    onKeyPressed: (event) => {
         if ((event.key === Qt.Key_A)
                 && (event.modifiers & Qt.ControlModifier)
                 && (event.modifiers & Qt.ShiftModifier)) {
@@ -122,7 +122,7 @@ Page {
         keyboardCursorShape: settings.keyboardCursorShape
 
         Keys.enabled: true
-        Keys.onPressed: control.keyPressed(event)
+        Keys.onPressed: (event) => control.keyPressed(event)
 
         onBackgroundColorChanged: {
             if(LingmoUI.Theme.darkMode)
@@ -146,12 +146,12 @@ Page {
             cursorShape: _terminal.terminalUsesMouse ? Qt.ArrowCursor : Qt.IBeamCursor
             acceptedButtons:  Qt.RightButton | Qt.LeftButton
 
-            onDoubleClicked: {
+            onDoubleClicked: (mouse) => {
                  var coord = correctDistortion(mouse.x, mouse.y)
                  _terminal.simulateMouseDoubleClick(coord.x, coord.y, mouse.button, mouse.buttons, mouse.modifiers)
             }
 
-            onPressed: {
+            onPressed: (mouse) => {
                 if ((!_terminal.terminalUsesMouse || mouse.modifiers & Qt.ShiftModifier)
                         && mouse.button == Qt.RightButton) {
                     updateMenu()
@@ -162,17 +162,17 @@ Page {
                 }
             }
 
-            onReleased: {
+            onReleased: (mouse) => {
                 var coord = correctDistortion(mouse.x, mouse.y)
                 _terminal.simulateMouseRelease(coord.x, coord.y, mouse.button, mouse.buttons, mouse.modifiers)
             }
 
-            onPositionChanged: {
+            onPositionChanged: (mouse) => {
                 var coord = correctDistortion(mouse.x, mouse.y)
                 _terminal.simulateMouseMove(coord.x, coord.y, mouse.button, mouse.buttons, mouse.modifiers)
             }
 
-            onClicked: {
+            onClicked: (mouse) => {
                 if (mouse.button === Qt.RightButton) {
                     updateMenu()
                     terminalMenu.popup()
@@ -315,7 +315,7 @@ Page {
     DropArea {
         id: _dropArea
         anchors.fill: parent
-        onDropped: {
+        onDropped: (drop) => {
             if (drop.hasUrls) {
                 control.urlsDropped(drop.urls)
             } else if (drop.hasText) {

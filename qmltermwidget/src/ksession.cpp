@@ -28,7 +28,6 @@
 #include <QDBusInterface>
 #include <QDBusServiceWatcher>
 #include <QDir>
-#include <QTextCodec>
 
 // Konsole
 #include "HistorySearch.h"
@@ -107,8 +106,8 @@ Session* KSession::createSession(QString name)
 
     // cool-old-term: There is another check in the code. Not sure if useful.
 
-    QString envshell = getenv("SHELL");
-    QString shellProg = envshell != NULL ? envshell : "/bin/bash";
+    QString envshell = QString::fromLocal8Bit(qgetenv("SHELL"));
+    QString shellProg = !envshell.isEmpty() ? envshell : QStringLiteral("/bin/bash");
     session->setProgram(shellProg);
 
     setenv("TERM", "xterm-256color", 1);
@@ -119,7 +118,7 @@ Session* KSession::createSession(QString name)
     session->setArguments(args);
     session->setAutoClose(true);
 
-    session->setCodec(QTextCodec::codecForName("UTF-8"));
+    session->setCodec(QStringConverter::Utf8);
 
     session->setFlowControlEnabled(true);
     session->setHistoryType(HistoryTypeBuffer(1000));
@@ -230,7 +229,7 @@ void KSession::setArgs(const QStringList& args)
     m_session->setArguments(args);
 }
 
-void KSession::setTextCodec(QTextCodec* codec)
+void KSession::setTextCodec(QStringConverter::Encoding codec)
 {
     m_session->setCodec(codec);
 }
@@ -297,7 +296,7 @@ void KSession::clearScreen()
 
 void KSession::search(const QString& regexp, int startLine, int startColumn, bool forwards)
 {
-    HistorySearch* history = new HistorySearch(QPointer<Emulation>(m_session->emulation()), QRegExp(regexp), forwards, startColumn, startLine, this);
+    HistorySearch* history = new HistorySearch(QPointer<Emulation>(m_session->emulation()), QRegularExpression(regexp), forwards, startColumn, startLine, this);
     connect(history, SIGNAL(matchFound(int, int, int, int)), this, SIGNAL(matchFound(int, int, int, int)));
     connect(history, SIGNAL(noMatchFound()), this, SIGNAL(noMatchFound()));
     history->search();
