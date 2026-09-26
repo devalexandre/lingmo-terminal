@@ -1,6 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=Terminal
+Name[pt_BR]=Terminal
 Name[zh_CN]=终端
 Exec=/usr/bin/lingmo-terminal
 Icon=utilities-terminal

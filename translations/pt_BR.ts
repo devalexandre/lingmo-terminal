@@ -4,128 +4,128 @@
 <context>
     <name>Appearance</name>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="7"/>
+        <location filename="../src/qml/SettingsPages/Appearance.qml" line="+7"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Aparência</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="17"/>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="25"/>
+        <location line="+10"/>
+        <location line="+8"/>
         <source>Font</source>
-        <translation type="unfinished">Fonte</translation>
+        <translation>Fonte</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="49"/>
+        <location line="+24"/>
         <source>Font Size</source>
-        <translation type="unfinished">Tamanho da fonte</translation>
+        <translation>Tamanho da fonte</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="71"/>
+        <location line="+22"/>
         <source>Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquema de cores</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="79"/>
+        <location line="+8"/>
         <source>Light Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquema de cores claro</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="100"/>
+        <location line="+21"/>
         <source>Dark Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquema de cores escuro</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="124"/>
+        <location line="+24"/>
         <source>Keyboard Cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Cursor do teclado</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="132"/>
+        <location line="+8"/>
         <source>Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="154"/>
+        <location line="+22"/>
         <source>Blinking</source>
-        <translation type="unfinished"></translation>
+        <translation>Piscando</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="170"/>
+        <location line="+16"/>
         <source>Window effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Efeitos da janela</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="178"/>
+        <location line="+8"/>
         <source>Transparency</source>
-        <translation type="unfinished">Transparência</translation>
+        <translation>Transparência</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="197"/>
+        <location line="+19"/>
         <source>Window Blur</source>
-        <translation type="unfinished">Opacidade da janela</translation>
+        <translation>Desfoque da janela</translation>
     </message>
 </context>
 <context>
     <name>Bookmark</name>
     <message>
-        <location filename="../src/qml/SettingsPages/Bookmark.qml" line="7"/>
-        <location filename="../src/qml/SettingsPages/Bookmark.qml" line="17"/>
+        <location filename="../src/qml/SettingsPages/Bookmark.qml" line="+7"/>
+        <location line="+10"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Favoritos</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Bookmark.qml" line="50"/>
+        <location line="+33"/>
         <source>Directory address</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereço do diretório</translation>
     </message>
 </context>
 <context>
     <name>Custom</name>
     <message>
-        <location filename="../src/qml/SettingsPages/Custom.qml" line="7"/>
+        <location filename="../src/qml/SettingsPages/Custom.qml" line="+7"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalizado</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Custom.qml" line="17"/>
+        <location line="+10"/>
         <source>Terminal</source>
-        <translation type="unfinished"></translation>
+        <translation>Terminal</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Custom.qml" line="25"/>
+        <location line="+8"/>
         <source>Word Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Caracteres de palavra</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Custom.qml" line="40"/>
+        <location line="+15"/>
         <source>Search Engines</source>
-        <translation type="unfinished"></translation>
+        <translation>Mecanismos de pesquisa</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Custom.qml" line="82"/>
+        <location line="+42"/>
         <source>Search engine name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome do mecanismo de pesquisa</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsPages/Custom.qml" line="90"/>
+        <location line="+8"/>
         <source>Search engine url,Replace the keyword with {keyword}</source>
-        <translation type="unfinished"></translation>
+        <translation>URL do mecanismo de pesquisa; substitua o termo pesquisado por {keyword}</translation>
     </message>
 </context>
 <context>
     <name>ExitPromptDialog</name>
     <message>
-        <location filename="../src/qml/ExitPromptDialog.qml" line="55"/>
+        <location filename="../src/qml/ExitPromptDialog.qml" line="+55"/>
         <source>Process is running, are you sure you want to quit?</source>
         <translation>Um processo está em execução, deseja encerrar mesmo assim?</translation>
     </message>
     <message>
-        <location filename="../src/qml/ExitPromptDialog.qml" line="68"/>
+        <location line="+13"/>
         <source>OK</source>
-        <translation>Ok</translation>
+        <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/qml/ExitPromptDialog.qml" line="62"/>
+        <location line="-6"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -133,211 +133,195 @@
 <context>
     <name>GlobalSettings</name>
     <message>
-        <location filename="../src/qml/GlobalSettings.qml" line="16"/>
+        <location filename="../src/qml/GlobalSettings.qml" line="+16"/>
         <source>Bing</source>
-        <translation type="unfinished"></translation>
+        <translation>Bing</translation>
     </message>
 </context>
 <context>
     <name>Konsole::Vt102Emulation</name>
     <message>
-        <location filename="../qmltermwidget/lib/Vt102Emulation.cpp" line="1257"/>
+        <location filename="../qmltermwidget/lib/Vt102Emulation.cpp" line="+1255"/>
         <source>No keyboard translator available.  The information needed to convert key presses into characters to send to the terminal is missing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhum tradutor de teclado disponível.  Faltam as informações necessárias para converter as teclas pressionadas em caracteres enviados ao terminal.</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../qmltermwidget/lib/ColorScheme.cpp" line="278"/>
-        <location filename="../qmltermwidget/lib/ColorScheme.cpp" line="293"/>
+        <location filename="../qmltermwidget/lib/ColorScheme.cpp" line="+278"/>
+        <location line="+15"/>
         <source>Un-named Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquema de cores sem nome</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/ColorScheme.cpp" line="464"/>
+        <location line="+171"/>
         <source>Accessible Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquema de cores acessível</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/Filter.cpp" line="544"/>
+        <location filename="../qmltermwidget/lib/Filter.cpp" line="+546"/>
         <source>Open Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir link</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/Filter.cpp" line="545"/>
+        <location line="+1"/>
         <source>Copy Link Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar endereço do link</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/Filter.cpp" line="549"/>
+        <location line="+4"/>
         <source>Send Email To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar e-mail para...</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/Filter.cpp" line="550"/>
+        <location line="+1"/>
         <source>Copy Email Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar endereço de e-mail</translation>
     </message>
 </context>
 <context>
     <name>QTermWidget</name>
     <message>
-        <location filename="../qmltermwidget/lib/qtermwidget.cpp" line="465"/>
+        <location filename="../qmltermwidget/lib/qtermwidget.cpp" line="+465"/>
         <source>Color Scheme Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro no esquema de cores</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/qtermwidget.cpp" line="466"/>
+        <location line="+1"/>
         <source>Cannot load color scheme: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Não foi possível carregar o esquema de cores: %1</translation>
     </message>
 </context>
 <context>
     <name>SearchBar</name>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.ui" line="14"/>
+        <location filename="../qmltermwidget/lib/SearchBar.ui" line="+14"/>
         <source>SearchBar</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de pesquisa</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.ui" line="20"/>
+        <location line="+6"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.ui" line="32"/>
+        <location line="+12"/>
         <source>Find:</source>
-        <translation type="unfinished"></translation>
+        <translation>Localizar:</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.ui" line="42"/>
+        <location line="+10"/>
         <source>&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.ui" line="54"/>
+        <location line="+12"/>
         <source>&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.ui" line="66"/>
+        <location line="+12"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.cpp" line="40"/>
+        <location filename="../qmltermwidget/lib/SearchBar.cpp" line="+40"/>
         <source>Match case</source>
-        <translation type="unfinished"></translation>
+        <translation>Diferenciar maiúsculas e minúsculas</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.cpp" line="46"/>
+        <location line="+6"/>
         <source>Regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Expressão regular</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.cpp" line="50"/>
+        <location line="+4"/>
         <source>Highlight all matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Destacar todas as ocorrências</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/qml/SettingsDialog.qml" line="10"/>
+        <location filename="../src/qml/SettingsDialog.qml" line="+10"/>
         <source>Settings</source>
         <translation>Configurações</translation>
-    </message>
-    <message>
-        <source>Font</source>
-        <translation type="vanished">Fonte</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Tamanho da fonte</translation>
-    </message>
-    <message>
-        <source>Transparency</source>
-        <translation type="vanished">Transparência</translation>
-    </message>
-    <message>
-        <source>Window Blur</source>
-        <translation type="vanished">Opacidade da janela</translation>
     </message>
 </context>
 <context>
     <name>SettingsSideBar</name>
     <message>
-        <location filename="../src/qml/SettingsSideBar.qml" line="34"/>
+        <location filename="../src/qml/SettingsSideBar.qml" line="+34"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Aparência</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsSideBar.qml" line="40"/>
+        <location line="+6"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Favoritos</translation>
     </message>
     <message>
-        <location filename="../src/qml/SettingsSideBar.qml" line="46"/>
+        <location line="+6"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalizado</translation>
     </message>
 </context>
 <context>
     <name>Terminal</name>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="195"/>
+        <location filename="../src/qml/Terminal.qml" line="+195"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="201"/>
-        <location filename="../src/qml/Terminal.qml" line="215"/>
+        <location line="+6"/>
+        <location line="+14"/>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="221"/>
+        <location line="+6"/>
         <source>Select All</source>
         <translation>Selecionar tudo</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="229"/>
+        <location line="+8"/>
         <source>Clear Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar tela</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="235"/>
+        <location line="+6"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Favoritos</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="249"/>
+        <location line="+14"/>
         <source>Add to bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Adicionar aos favoritos</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="261"/>
+        <location line="+12"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquisar</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="277"/>
+        <location line="+16"/>
         <source>Open File Manager</source>
         <translation>Abrir Gerenciador de arquivos</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="282"/>
+        <location line="+5"/>
         <source>Exit full screen</source>
         <translation>Sair do modo tela cheia</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="282"/>
+        <location line="+0"/>
         <source>Full screen</source>
         <translation>Tela cheia</translation>
     </message>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="291"/>
+        <location line="+9"/>
         <source>Settings</source>
         <translation>Configurações</translation>
     </message>
