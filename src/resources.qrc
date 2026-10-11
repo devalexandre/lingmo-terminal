@@ -19,5 +19,10 @@
         <file>images/sidebar/bookmark.svg</file>
         <file>qml/SettingsPages/Custom.qml</file>
         <file>images/sidebar/custom.svg</file>
+        <file>images/sidebar/general.svg</file>
+        <file>images/checked.svg</file>
+        <file>qml/SettingsPages/General.qml</file>
+        <file>qml/SettingsPages/Scrollable.qml</file>
+        <file>qml/SettingsPages/IconButton.qml</file>
     </qresource>
 </RCC>

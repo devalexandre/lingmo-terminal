@@ -8,13 +8,18 @@ LingmoUI.Window {
     id: control
 
     title: qsTr("Settings")
-    width: 600
-    maximumWidth: 600
-    minimumWidth: 600
+    width: 820
+    height: 580
+    minimumWidth: 720
+    minimumHeight: 460
 
     minimizeButtonVisible: false
     flags: Qt.WindowStaysOnTopHint | Qt.Dialog | Qt.FramelessWindowHint
     modality: Qt.WindowModal
+
+    // Like Settings: the content goes up to the top edge and the sidebar keeps
+    // a strip of header.height free for the window buttons
+    header.height: 40
     contentTopMargin: 0
     background.color: LingmoUI.Theme.backgroundColor
 
@@ -45,12 +50,14 @@ LingmoUI.Window {
 
             pushEnter: Transition {}
             pushExit: Transition {}
+            popEnter: Transition {}
+            popExit: Transition {}
+            replaceEnter: Transition {}
+            replaceExit: Transition {}
         }
     }
 
     function switchPageFromIndex(index) {
-        _stackView.pop()
-        _stackView.push(Qt.resolvedUrl(sideBar.model.get(index).page))
+        _stackView.replace(null, Qt.resolvedUrl(sideBar.model.get(index).page))
     }
-
 }

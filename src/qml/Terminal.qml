@@ -103,6 +103,12 @@ Page {
             event.accepted = true
         }
 
+        if (event.key === Qt.Key_Comma && (event.modifiers & Qt.ControlModifier)) {
+            settingsDialog.show()
+            settingsDialog.raise()
+            event.accepted = true
+        }
+
         if (event.key === Qt.Key_F11) {
             root.visibility = root.isFullScreen ? Window.Windowed : Window.FullScreen
             event.accepted = true
@@ -138,6 +144,8 @@ Page {
             id: _session
             onFinished: control.terminalClosed()
             initialWorkingDirectory: control.path
+            // Empty: KSession falls back to the user's login shell
+            shellProgram: settings.shellProgram
         }
 
         MouseArea {
@@ -266,7 +274,7 @@ Page {
 
                 onTriggered:{
                     var url = settings.searchUrl[index][1];
-                    url = url.replace("{KeyWord}",_terminal.getSelectedText)
+                    url = url.replace(/\{keyword\}/gi, encodeURIComponent(_terminal.getSelectedText))
                     Qt.openUrlExternally(url)
                     }
                 }

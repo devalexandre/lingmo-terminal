@@ -13,9 +13,12 @@ Settings {
     property int keyboardCursorShape: 0
     property bool blinkingCursor: true
 
-    property var searchUrl: [[qsTr("Bing"),"https://cn.bing.com/search?from=MOZLBR&pc=MOZI&q={KeyWord}"]]
+    // Default for new configs only; a saved list is kept as it is
+    property var searchUrl: [["DuckDuckGo", "https://duckduckgo.com/?q={KeyWord}"]]
     property var bookmark: []
     property string wordCharacters: ":@-./_~,"
+    // Shell for new tabs; empty means the user's login shell
+    property string shellProgram: ""
     property var colorschemes: ["Lingmo-Light","Lingmo-Dark","Dracula","BlackOnLightYellow","BlackOnRandomLight","BlackOnWhite","Tango","Ubuntu","Solarized","SolarizedLight"]
     property string lightcolorScheme: "Lingmo-Light"
     property string darkcolorScheme: "Dracula"

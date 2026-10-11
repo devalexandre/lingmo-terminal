@@ -1,13 +1,11 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
-import Qt5Compat.GraphicalEffects
 import LingmoUI.CompatibleModule 3.0 as LingmoUI
 
+// Same look as the sidebar of Lingmo Settings
 Item {
-    implicitWidth: 150
-
-    property int itemRadiusV: 8
+    implicitWidth: 230
 
     property alias view: listView
     property alias model: listModel
@@ -15,9 +13,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: LingmoUI.Theme.darkMode ? Qt.lighter(LingmoUI.Theme.backgroundColor, 1.5)
-                                     : Qt.darker(LingmoUI.Theme.backgroundColor, 1.05)
-        opacity: control.compositing ? 0.7 : 1.0
+        color: LingmoUI.Theme.darkMode ? Qt.rgba(0.11, 0.11, 0.15, 0.55) : "#EDEEF2"
 
         Behavior on color {
             ColorAnimation {
@@ -31,39 +27,64 @@ Item {
         id: listModel
 
         ListElement {
+            title: qsTr("General")
+            name: "general"
+            page: "qrc:/qml/SettingsPages/General.qml"
+            iconSource: "qrc:/images/sidebar/general.svg"
+            tile: "grey"
+        }
+        ListElement {
             title: qsTr("Appearance")
             name: "appearance"
             page: "qrc:/qml/SettingsPages/Appearance.qml"
             iconSource: "qrc:/images/sidebar/appearance.svg"
+            tile: "purple"
         }
         ListElement {
             title: qsTr("Bookmark")
             name: "bookmark"
             page: "qrc:/qml/SettingsPages/Bookmark.qml"
             iconSource: "qrc:/images/sidebar/bookmark.svg"
+            tile: "orange"
         }
         ListElement {
             title: qsTr("Custom")
             name: "custom"
             page: "qrc:/qml/SettingsPages/Custom.qml"
             iconSource: "qrc:/images/sidebar/custom.svg"
+            tile: "blue"
+        }
+    }
+
+    function tileColor(name) {
+        switch (name) {
+        case "purple": return LingmoUI.Theme.purpleColor
+        case "orange": return LingmoUI.Theme.orangeColor
+        case "blue": return LingmoUI.Theme.blueColor
+        default: return LingmoUI.Theme.greyColor
         }
     }
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 0
         spacing: 0
 
+        // The window buttons sit in this strip
+        Item {
+            Layout.preferredHeight: control.header.height
+        }
+
         Label {
+            Layout.fillWidth: true
             text: control.title
             color: control.active ? LingmoUI.Theme.textColor : LingmoUI.Theme.disabledTextColor
-            Layout.preferredHeight: control.header.height
             leftPadding: LingmoUI.Units.largeSpacing + LingmoUI.Units.smallSpacing
             rightPadding: LingmoUI.Units.largeSpacing + LingmoUI.Units.smallSpacing
-            topPadding: LingmoUI.Units.smallSpacing
-            bottomPadding: 0
-            font.pointSize: 13
+            topPadding: 2
+            bottomPadding: LingmoUI.Units.largeSpacing
+            font.pointSize: 17
+            font.bold: true
+            elide: Text.ElideRight
         }
 
         ListView {
@@ -72,24 +93,21 @@ Item {
             Layout.fillWidth: true
             clip: true
             model: listModel
+            boundsBehavior: Flickable.StopAtBounds
 
             spacing: LingmoUI.Units.smallSpacing
             leftMargin: LingmoUI.Units.largeSpacing
             rightMargin: LingmoUI.Units.largeSpacing
-            topMargin: LingmoUI.Units.largeSpacing
             bottomMargin: LingmoUI.Units.largeSpacing
 
             ScrollBar.vertical: ScrollBar {}
 
             highlightFollowsCurrentItem: true
             highlightMoveDuration: 0
-            highlightResizeDuration : 0
+            highlightResizeDuration: 0
             highlight: Rectangle {
                 radius: LingmoUI.Theme.mediumRadius
-                color: Qt.rgba(LingmoUI.Theme.textColor.r,
-                               LingmoUI.Theme.textColor.g,
-                               LingmoUI.Theme.textColor.b, 0.05)
-                smooth: true
+                color: LingmoUI.Theme.highlightColor
             }
 
             LingmoUI.WheelHandler {
@@ -99,69 +117,70 @@ Item {
             delegate: Item {
                 id: item
                 width: ListView.view.width - ListView.view.leftMargin - ListView.view.rightMargin
-                height: 35
+                height: LingmoUI.Units.fontMetrics.height + LingmoUI.Units.largeSpacing * 1.5
 
                 property bool isCurrent: listView.currentIndex === index
 
                 Rectangle {
                     anchors.fill: parent
-
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        acceptedButtons: Qt.LeftButton
-                        onClicked: listView.currentIndex = index
-                    }
-
                     radius: LingmoUI.Theme.mediumRadius
-                    color: mouseArea.pressed ? Qt.rgba(LingmoUI.Theme.textColor.r,
-                                                       LingmoUI.Theme.textColor.g,
-                                                       LingmoUI.Theme.textColor.b, LingmoUI.Theme.darkMode ? 0.05 : 0.1) :
-                           mouseArea.containsMouse || isCurrent ? Qt.rgba(LingmoUI.Theme.textColor.r,
-                                                                          LingmoUI.Theme.textColor.g,
-                                                                          LingmoUI.Theme.textColor.b, LingmoUI.Theme.darkMode ? 0.1 : 0.05) :
-                                                                  "transparent"
+                    color: mouseArea.containsMouse && !item.isCurrent
+                           ? Qt.rgba(LingmoUI.Theme.textColor.r, LingmoUI.Theme.textColor.g,
+                                     LingmoUI.Theme.textColor.b, 0.1)
+                           : "transparent"
 
-                    smooth: true
+                    Behavior on color { ColorAnimation { duration: 120 } }
+                }
+
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    acceptedButtons: Qt.LeftButton
+                    onClicked: listView.currentIndex = index
                 }
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: LingmoUI.Units.smallSpacing
-                    spacing: LingmoUI.Units.smallSpacing
+                    anchors.leftMargin: LingmoUI.Units.largeSpacing
+                    anchors.rightMargin: LingmoUI.Units.smallSpacing
+                    spacing: LingmoUI.Units.smallSpacing * 1.5
 
                     Rectangle {
                         id: iconRect
-                        width: 26
-                        height: 26
+                        Layout.preferredWidth: 26
+                        Layout.preferredHeight: 26
                         Layout.alignment: Qt.AlignVCenter
-                        radius: width /2
-                        color: LingmoUI.Theme.highlightColor
+                        radius: 7
 
+                        readonly property color baseColor: {
+                            var c = tileColor(model.tile)
+                            return LingmoUI.Theme.darkMode ? Qt.lighter(c, 1.12) : Qt.darker(c, 1.04)
+                        }
+                        gradient: Gradient {
+                            GradientStop { position: 0.0; color: Qt.lighter(iconRect.baseColor, LingmoUI.Theme.darkMode ? 1.18 : 1.12) }
+                            GradientStop { position: 1.0; color: iconRect.baseColor }
+                        }
+                        border.width: 1
+                        border.color: LingmoUI.Theme.darkMode ? Qt.rgba(1, 1, 1, item.isCurrent ? 0.55 : 0.18)
+                                                              : Qt.rgba(0, 0, 0, item.isCurrent ? 0.0 : 0.10)
 
                         Image {
-                            id: icon
                             anchors.centerIn: parent
-                            width: 14
+                            width: 16
                             height: width
                             source: model.iconSource
-                            sourceSize: Qt.size(width, height)
-                            Layout.alignment: Qt.AlignVCenter
-                            antialiasing: false
-                            smooth: false
+                            sourceSize: Qt.size(width * 2, height * 2)
+                            smooth: true
+                            antialiasing: true
                         }
                     }
 
                     Label {
-                        id: itemTitle
-                        text: model.title
-                        color: LingmoUI.Theme.darkMode ? LingmoUI.Theme.textColor : "#363636"
-                        font.pointSize: 8
-                    }
-
-                    Item {
                         Layout.fillWidth: true
+                        text: model.title
+                        elide: Text.ElideRight
+                        color: item.isCurrent ? LingmoUI.Theme.highlightedTextColor : LingmoUI.Theme.textColor
                     }
                 }
             }

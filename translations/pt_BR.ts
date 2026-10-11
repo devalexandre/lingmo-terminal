@@ -4,43 +4,43 @@
 <context>
     <name>Appearance</name>
     <message>
-        <location filename="../src/qml/SettingsPages/Appearance.qml" line="+7"/>
+        <location filename="../src/qml/SettingsPages/Appearance.qml" line="+8"/>
         <source>Appearance</source>
         <translation>Aparência</translation>
     </message>
     <message>
+        <location line="+13"/>
         <location line="+10"/>
-        <location line="+8"/>
         <source>Font</source>
         <translation>Fonte</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+14"/>
         <source>Font Size</source>
         <translation>Tamanho da fonte</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+33"/>
         <source>Color Scheme</source>
         <translation>Esquema de cores</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Light Color Scheme</source>
         <translation>Esquema de cores claro</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+12"/>
         <source>Dark Color Scheme</source>
         <translation>Esquema de cores escuro</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+15"/>
         <source>Keyboard Cursor</source>
         <translation>Cursor do teclado</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Shape</source>
         <translation>Formato</translation>
     </message>
@@ -50,17 +50,17 @@
         <translation>Piscando</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+13"/>
         <source>Window effects</source>
         <translation>Efeitos da janela</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Transparency</source>
         <translation>Transparência</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Window Blur</source>
         <translation>Desfoque da janela</translation>
     </message>
@@ -68,31 +68,41 @@
 <context>
     <name>Bookmark</name>
     <message>
-        <location filename="../src/qml/SettingsPages/Bookmark.qml" line="+7"/>
-        <location line="+10"/>
+        <location filename="../src/qml/SettingsPages/Bookmark.qml" line="+8"/>
+        <location line="+26"/>
         <source>Bookmark</source>
         <translation>Favoritos</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+19"/>
+        <source>Remove</source>
+        <translation>Remover</translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Directory address</source>
         <translation>Endereço do diretório</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Add</source>
+        <translation>Adicionar</translation>
     </message>
 </context>
 <context>
     <name>Custom</name>
     <message>
-        <location filename="../src/qml/SettingsPages/Custom.qml" line="+7"/>
+        <location filename="../src/qml/SettingsPages/Custom.qml" line="+8"/>
         <source>Custom</source>
         <translation>Personalizado</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+32"/>
         <source>Terminal</source>
         <translation>Terminal</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Word Characters</source>
         <translation>Caracteres de palavra</translation>
     </message>
@@ -102,14 +112,32 @@
         <translation>Mecanismos de pesquisa</translation>
     </message>
     <message>
-        <location line="+42"/>
-        <source>Search engine name</source>
-        <translation>Nome do mecanismo de pesquisa</translation>
+        <location line="+7"/>
+        <source>{KeyWord} in the address is replaced by the selected text.</source>
+        <translation>{KeyWord} no endereço é trocado pelo texto selecionado.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+29"/>
+        <source>Remove</source>
+        <translation>Remover</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Name</source>
+        <translation>Nome</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Add</source>
+        <translation>Adicionar</translation>
+    </message>
+    <message>
+        <source>Search engine name</source>
+        <translation type="vanished">Nome do mecanismo de pesquisa</translation>
+    </message>
+    <message>
         <source>Search engine url,Replace the keyword with {keyword}</source>
-        <translation>URL do mecanismo de pesquisa; substitua o termo pesquisado por {keyword}</translation>
+        <translation type="vanished">URL do mecanismo de pesquisa; substitua o termo pesquisado por {keyword}</translation>
     </message>
 </context>
 <context>
@@ -131,114 +159,137 @@
     </message>
 </context>
 <context>
+    <name>General</name>
+    <message>
+        <location filename="../src/qml/SettingsPages/General.qml" line="+8"/>
+        <source>General</source>
+        <translation>Geral</translation>
+    </message>
+    <message>
+        <location line="+123"/>
+        <source>Shell</source>
+        <translation>Shell</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Applies to new tabs and windows.</source>
+        <translation>Vale para novas abas e janelas.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>System default (%1)</source>
+        <translation>Padrão do sistema (%1)</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Other…</source>
+        <translation>Outro…</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Any program, by its full path</source>
+        <translation>Qualquer programa, pelo caminho completo</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Use</source>
+        <translation>Usar</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Enter the full path of an executable file, like /usr/bin/fish.</source>
+        <translation>Informe o caminho completo de um arquivo executável, como /usr/bin/fish.</translation>
+    </message>
+</context>
+<context>
     <name>GlobalSettings</name>
     <message>
-        <location filename="../src/qml/GlobalSettings.qml" line="+16"/>
         <source>Bing</source>
-        <translation>Bing</translation>
+        <translation type="vanished">Bing</translation>
     </message>
 </context>
 <context>
     <name>Konsole::Vt102Emulation</name>
     <message>
-        <location filename="../qmltermwidget/lib/Vt102Emulation.cpp" line="+1255"/>
         <source>No keyboard translator available.  The information needed to convert key presses into characters to send to the terminal is missing.</source>
-        <translation>Nenhum tradutor de teclado disponível.  Faltam as informações necessárias para converter as teclas pressionadas em caracteres enviados ao terminal.</translation>
+        <translation type="vanished">Nenhum tradutor de teclado disponível.  Faltam as informações necessárias para converter as teclas pressionadas em caracteres enviados ao terminal.</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../qmltermwidget/lib/ColorScheme.cpp" line="+278"/>
-        <location line="+15"/>
         <source>Un-named Color Scheme</source>
-        <translation>Esquema de cores sem nome</translation>
+        <translation type="vanished">Esquema de cores sem nome</translation>
     </message>
     <message>
-        <location line="+171"/>
         <source>Accessible Color Scheme</source>
-        <translation>Esquema de cores acessível</translation>
+        <translation type="vanished">Esquema de cores acessível</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/Filter.cpp" line="+546"/>
         <source>Open Link</source>
-        <translation>Abrir link</translation>
+        <translation type="vanished">Abrir link</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy Link Address</source>
-        <translation>Copiar endereço do link</translation>
+        <translation type="vanished">Copiar endereço do link</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Send Email To...</source>
-        <translation>Enviar e-mail para...</translation>
+        <translation type="vanished">Enviar e-mail para...</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy Email Address</source>
-        <translation>Copiar endereço de e-mail</translation>
+        <translation type="vanished">Copiar endereço de e-mail</translation>
     </message>
 </context>
 <context>
     <name>QTermWidget</name>
     <message>
-        <location filename="../qmltermwidget/lib/qtermwidget.cpp" line="+465"/>
         <source>Color Scheme Error</source>
-        <translation>Erro no esquema de cores</translation>
+        <translation type="vanished">Erro no esquema de cores</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Cannot load color scheme: %1</source>
-        <translation>Não foi possível carregar o esquema de cores: %1</translation>
+        <translation type="vanished">Não foi possível carregar o esquema de cores: %1</translation>
     </message>
 </context>
 <context>
     <name>SearchBar</name>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.ui" line="+14"/>
         <source>SearchBar</source>
-        <translation>Barra de pesquisa</translation>
+        <translation type="vanished">Barra de pesquisa</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>X</source>
-        <translation>X</translation>
+        <translation type="vanished">X</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Find:</source>
-        <translation>Localizar:</translation>
+        <translation type="vanished">Localizar:</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>&lt;</source>
-        <translation>&lt;</translation>
+        <translation type="vanished">&lt;</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>&gt;</source>
-        <translation>&gt;</translation>
+        <translation type="vanished">&gt;</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="vanished">...</translation>
     </message>
     <message>
-        <location filename="../qmltermwidget/lib/SearchBar.cpp" line="+40"/>
         <source>Match case</source>
-        <translation>Diferenciar maiúsculas e minúsculas</translation>
+        <translation type="vanished">Diferenciar maiúsculas e minúsculas</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Regular expression</source>
-        <translation>Expressão regular</translation>
+        <translation type="vanished">Expressão regular</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Highlight all matches</source>
-        <translation>Destacar todas as ocorrências</translation>
+        <translation type="vanished">Destacar todas as ocorrências</translation>
     </message>
 </context>
 <context>
@@ -252,17 +303,22 @@
 <context>
     <name>SettingsSideBar</name>
     <message>
-        <location filename="../src/qml/SettingsSideBar.qml" line="+34"/>
+        <location filename="../src/qml/SettingsSideBar.qml" line="+30"/>
+        <source>General</source>
+        <translation>Geral</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Appearance</source>
         <translation>Aparência</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>Bookmark</source>
         <translation>Favoritos</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>Custom</source>
         <translation>Personalizado</translation>
     </message>
@@ -270,7 +326,7 @@
 <context>
     <name>Terminal</name>
     <message>
-        <location filename="../src/qml/Terminal.qml" line="+195"/>
+        <location filename="../src/qml/Terminal.qml" line="+203"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>

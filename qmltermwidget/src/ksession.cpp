@@ -28,6 +28,10 @@
 #include <QDBusInterface>
 #include <QDBusServiceWatcher>
 #include <QDir>
+#include <QFileInfo>
+
+#include <pwd.h>
+#include <unistd.h>
 
 // Konsole
 #include "HistorySearch.h"
@@ -90,6 +94,27 @@ void KSession::setTitle(QString name)
     m_session->setTitle(Session::NameRole, name);
 }
 
+// The user's login shell: $SHELL, then the passwd entry, then /bin/bash
+static QString defaultShell()
+{
+    auto usable = [](const QString &path) {
+        const QFileInfo info(path);
+        return !path.isEmpty() && info.isAbsolute() && info.isFile() && info.isExecutable();
+    };
+
+    const QString env = QString::fromLocal8Bit(qgetenv("SHELL"));
+    if (usable(env))
+        return env;
+
+    if (const struct passwd *pw = getpwuid(getuid())) {
+        const QString login = QString::fromLocal8Bit(pw->pw_shell);
+        if (usable(login))
+            return login;
+    }
+
+    return QStringLiteral("/bin/bash");
+}
+
 Session* KSession::createSession(QString name)
 {
     Session* session = new Session();
@@ -106,9 +131,7 @@ Session* KSession::createSession(QString name)
 
     // cool-old-term: There is another check in the code. Not sure if useful.
 
-    QString envshell = QString::fromLocal8Bit(qgetenv("SHELL"));
-    QString shellProg = !envshell.isEmpty() ? envshell : QStringLiteral("/bin/bash");
-    session->setProgram(shellProg);
+    session->setProgram(defaultShell());
 
     setenv("TERM", "xterm-256color", 1);
 
@@ -207,7 +230,8 @@ void KSession::setEnvironment(const QStringList& environment)
 
 void KSession::setShellProgram(const QString& progname)
 {
-    m_session->setProgram(progname);
+    // An empty name means "the user's shell", not "no program"
+    m_session->setProgram(progname.isEmpty() ? defaultShell() : progname);
 }
 
 void KSession::setInitialWorkingDirectory(const QString& dir)
