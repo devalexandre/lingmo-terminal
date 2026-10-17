@@ -6,7 +6,6 @@ import QtQuick 2.12
 import QtQml.Models 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-import Qt5Compat.GraphicalEffects
 
 import Lingmo.TermWidget 1.0
 import LingmoUI.CompatibleModule 3.0 as LingmoUI
@@ -96,140 +95,21 @@ LingmoUI.Window {
 
     // Tabs as pills in the window's header strip, next to the window buttons
     headerItem: Item {
-        RowLayout {
-            id: _tabRow
+        LingmoUI.PillTabBar {
             anchors.fill: parent
             anchors.topMargin: LingmoUI.Units.smallSpacing / 2
             anchors.bottomMargin: LingmoUI.Units.smallSpacing / 2
-            spacing: LingmoUI.Units.smallSpacing
+            model: _tabView.count
+            textProvider: (index) => _tabView.contentModel.get(index) ? _tabView.contentModel.get(index).title : ""
+            currentIndex: _tabView.currentIndex
+            newTabTipText: qsTr("New Tab")
 
-            // Every tab gets the same width; long titles are elided
-            readonly property real tabWidth: {
-                var free = _tabRow.width - _newTabButton.width - _dragSpace.Layout.minimumWidth
-                           - _tabRow.spacing * 2 - _tabbar.spacing * Math.max(0, _tabbar.count - 1)
-                return Math.max(LingmoUI.Units.gridUnit * 4,
-                                Math.min(LingmoUI.Units.gridUnit * 13, free / Math.max(1, _tabbar.count)))
+            onActivated: (index) => {
+                _tabView.currentIndex = index
+                _tabView.currentItem.forceActiveFocus()
             }
-
-            ListView {
-                id: _tabbar
-                Layout.fillHeight: true
-                Layout.preferredWidth: contentWidth
-                Layout.maximumWidth: _tabRow.width - _newTabButton.width - _dragSpace.Layout.minimumWidth
-                                     - _tabRow.spacing * 2
-                orientation: ListView.Horizontal
-                spacing: LingmoUI.Units.smallSpacing / 2
-                boundsBehavior: Flickable.StopAtBounds
-                clip: true
-                model: _tabView.count
-                currentIndex: _tabView.currentIndex
-                highlightMoveDuration: LingmoUI.Units.shortDuration
-
-                delegate: Item {
-                    id: _tabBtn
-
-                    required property int index
-                    readonly property bool checked: _tabView.currentIndex === index
-                    readonly property bool hovered: _tabMouse.containsMouse || _closeBtn.hovered
-                    readonly property string title: _tabView.contentModel.get(index) ? _tabView.contentModel.get(index).title : ""
-
-                    width: _tabRow.tabWidth
-                    height: ListView.view.height
-
-                    Accessible.role: Accessible.PageTab
-                    Accessible.name: title
-
-                    ToolTip.delay: 500
-                    ToolTip.timeout: 5000
-                    ToolTip.visible: _tabMouse.containsMouse
-                    ToolTip.text: title
-
-                    Rectangle {
-                        id: _pill
-                        anchors.fill: parent
-                        anchors.topMargin: 3
-                        anchors.bottomMargin: 3
-                        radius: height / 2
-                        color: _tabBtn.checked ? LingmoUI.Theme.highlightColor
-                             : _tabMouse.pressed ? LingmoUI.Theme.pressedColor
-                             : _tabBtn.hovered ? LingmoUI.Theme.hoverColor
-                             : "transparent"
-                        border.width: _tabBtn.checked ? 0 : 1
-                        border.color: LingmoUI.Theme.borderColor
-                        scale: _tabMouse.pressed ? 0.97 : 1.0
-
-                        Behavior on color { ColorAnimation { duration: LingmoUI.Units.shortDuration; easing.type: LingmoUI.Units.easing } }
-                        Behavior on scale { NumberAnimation { duration: LingmoUI.Units.veryShortDuration; easing.type: LingmoUI.Units.easing } }
-                    }
-
-                    MouseArea {
-                        id: _tabMouse
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        acceptedButtons: Qt.LeftButton
-
-                        onClicked: {
-                            _tabView.currentIndex = index
-                            _tabView.currentItem.forceActiveFocus()
-                        }
-                    }
-
-                    RowLayout {
-                        anchors.fill: _pill
-                        anchors.leftMargin: LingmoUI.Units.largeSpacing
-                        anchors.rightMargin: LingmoUI.Units.smallSpacing / 2
-                        spacing: 0
-
-                        Label {
-                            Layout.fillWidth: true
-                            text: _tabBtn.title
-                            elide: Text.ElideMiddle
-                            horizontalAlignment: Text.AlignHCenter
-                            font.pointSize: LingmoUI.Units.fontBody
-                            font.weight: _tabBtn.checked ? Font.DemiBold : Font.Normal
-                            color: _tabBtn.checked ? LingmoUI.Theme.highlightedTextColor
-                                 : _tabBtn.hovered ? LingmoUI.Theme.textColor
-                                 : LingmoUI.Theme.secondaryTextColor
-
-                            Behavior on color { ColorAnimation { duration: LingmoUI.Units.shortDuration } }
-                        }
-
-                        // Close button: on the current tab and on the hovered one
-                        LingmoUI.IconButton {
-                            id: _closeBtn
-                            Layout.alignment: Qt.AlignVCenter
-                            size: _pill.height - 6
-                            iconSize: 12
-                            round: true
-                            iconName: "qrc:/images/" + (LingmoUI.Theme.darkMode || _tabBtn.checked ? "dark/" : "light/") + "close.svg"
-                            focusPolicy: Qt.NoFocus
-                            opacity: (_tabBtn.checked || _tabBtn.hovered) ? 1.0 : 0.0
-                            enabled: opacity > 0
-
-                            Behavior on opacity { NumberAnimation { duration: LingmoUI.Units.shortDuration } }
-
-                            onClicked: root.closeProtection(_tabBtn.index)
-                        }
-                    }
-                }
-            }
-
-            LingmoUI.IconButton {
-                id: _newTabButton
-                Layout.alignment: Qt.AlignVCenter
-                round: true
-                iconName: "qrc:/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "add.svg"
-                tipText: qsTr("New Tab")
-                focusPolicy: Qt.NoFocus
-                onClicked: openNewTab()
-            }
-
-            // Free space to drag the window by
-            Item {
-                id: _dragSpace
-                Layout.fillWidth: true
-                Layout.minimumWidth: LingmoUI.Units.largeSpacing * 4
-            }
+            onCloseRequested: (index) => root.closeProtection(index)
+            onNewTabRequested: openNewTab()
         }
     }
 

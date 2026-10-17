@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     app.setOrganizationName("lingmoos");
-    app.setWindowIcon(QIcon::fromTheme("terminal"));
+    app.setWindowIcon(QIcon::fromTheme("lingmo-terminal", QIcon::fromTheme("terminal")));
 
     QQmlApplicationEngine engine;
 
