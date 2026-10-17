@@ -19,7 +19,7 @@ LingmoUI.Window {
 
     // Like Settings: the content goes up to the top edge and the sidebar keeps
     // a strip of header.height free for the window buttons
-    header.height: 40
+    header.height: LingmoUI.Units.windowHeaderHeight
     contentTopMargin: 0
     background.color: LingmoUI.Theme.backgroundColor
 
@@ -32,9 +32,54 @@ LingmoUI.Window {
         anchors.fill: parent
         spacing: 0
 
-        SettingsSideBar {
+        LingmoUI.SettingsSideBar {
             id: sideBar
             Layout.fillHeight: true
+
+            // Tile colours follow the theme; ListElement only takes constants,
+            // so they are filled in here
+            model: ListModel {
+                id: listModel
+
+                ListElement {
+                    title: qsTranslate("SettingsSideBar", "General")
+                    name: "general"
+                    page: "qrc:/qml/SettingsPages/General.qml"
+                    iconSource: "qrc:/images/sidebar/general.svg"
+                    iconColor: "transparent"
+                }
+                ListElement {
+                    title: qsTranslate("SettingsSideBar", "Appearance")
+                    name: "appearance"
+                    page: "qrc:/qml/SettingsPages/Appearance.qml"
+                    iconSource: "qrc:/images/sidebar/appearance.svg"
+                    iconColor: "transparent"
+                }
+                ListElement {
+                    title: qsTranslate("SettingsSideBar", "Bookmark")
+                    name: "bookmark"
+                    page: "qrc:/qml/SettingsPages/Bookmark.qml"
+                    iconSource: "qrc:/images/sidebar/bookmark.svg"
+                    iconColor: "transparent"
+                }
+                ListElement {
+                    title: qsTranslate("SettingsSideBar", "Custom")
+                    name: "custom"
+                    page: "qrc:/qml/SettingsPages/Custom.qml"
+                    iconSource: "qrc:/images/sidebar/custom.svg"
+                    iconColor: "transparent"
+                }
+            }
+
+            readonly property var tileColors: [LingmoUI.Theme.greyColor, LingmoUI.Theme.purpleColor,
+                                               LingmoUI.Theme.orangeColor, LingmoUI.Theme.blueColor]
+            onTileColorsChanged: updateTiles()
+            Component.onCompleted: updateTiles()
+
+            function updateTiles() {
+                for (var i = 0; i < listModel.count && i < tileColors.length; ++i)
+                    listModel.setProperty(i, "iconColor", tileColors[i].toString())
+            }
 
             onCurrentIndexChanged: {
                 switchPageFromIndex(currentIndex)

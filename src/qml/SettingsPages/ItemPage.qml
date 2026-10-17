@@ -13,20 +13,11 @@ Page {
         color: control.background.color
     }
 
-    header: Item {
+    header: LingmoUI.PageHeader {
         height: control.header.height
-
-        Label {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            leftPadding: LingmoUI.Units.largeSpacing * 2
-            rightPadding: LingmoUI.Units.largeSpacing * 2
-            topPadding: LingmoUI.Units.largeSpacing
-            bottomPadding: 0
-            font.pointSize: 12
-            elide: Text.ElideRight
-            text: page.headerTitle
-            color: control.active ? LingmoUI.Theme.textColor : LingmoUI.Theme.disabledTextColor
-        }
+        title: page.headerTitle
+        large: false
+        leftPadding: LingmoUI.Units.largeSpacing * 2
+        rightPadding: LingmoUI.Units.largeSpacing * 2
     }
 }

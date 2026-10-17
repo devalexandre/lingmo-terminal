@@ -53,21 +53,22 @@ LingmoUI.Window {
 
         Label {
             text: qsTr("Process is running, are you sure you want to quit?")
+            font.pointSize: LingmoUI.Units.fontBody
         }
 
         RowLayout {
             spacing: LingmoUI.Units.largeSpacing
 
-            Button {
+            LingmoUI.ActionButton {
                 text: qsTr("Cancel")
                 Layout.fillWidth: true
                 onClicked: control.visible = false
             }
 
-            Button {
+            LingmoUI.ActionButton {
                 text: qsTr("OK")
                 Layout.fillWidth: true
-                flat: true
+                primary: true
                 onClicked: {
                     control.visible = false
                     control.okBtnClicked()

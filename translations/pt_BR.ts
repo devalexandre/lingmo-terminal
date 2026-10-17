@@ -9,58 +9,58 @@
         <translation>Aparência</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+10"/>
+        <location line="+26"/>
+        <location line="+12"/>
         <source>Font</source>
         <translation>Fonte</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+15"/>
         <source>Font Size</source>
         <translation>Tamanho da fonte</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+49"/>
         <source>Color Scheme</source>
         <translation>Esquema de cores</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>Light Color Scheme</source>
         <translation>Esquema de cores claro</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+13"/>
         <source>Dark Color Scheme</source>
         <translation>Esquema de cores escuro</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+30"/>
         <source>Keyboard Cursor</source>
         <translation>Cursor do teclado</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>Shape</source>
         <translation>Formato</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+13"/>
         <source>Blinking</source>
         <translation>Piscando</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+28"/>
         <source>Window effects</source>
         <translation>Efeitos da janela</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>Transparency</source>
         <translation>Transparência</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>Window Blur</source>
         <translation>Desfoque da janela</translation>
     </message>
@@ -69,9 +69,19 @@
     <name>Bookmark</name>
     <message>
         <location filename="../src/qml/SettingsPages/Bookmark.qml" line="+8"/>
-        <location line="+26"/>
+        <location line="+37"/>
         <source>Bookmark</source>
         <translation>Favoritos</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>No bookmarks</source>
+        <translation>Nenhum favorito</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Folders added here appear under Bookmark in the terminal&apos;s menu.</source>
+        <translation>As pastas adicionadas aqui aparecem em Favoritos no menu do terminal.</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -97,22 +107,22 @@
         <translation>Personalizado</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+45"/>
         <source>Terminal</source>
         <translation>Terminal</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+11"/>
         <source>Word Characters</source>
         <translation>Caracteres de palavra</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+28"/>
         <source>Search Engines</source>
         <translation>Mecanismos de pesquisa</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>{KeyWord} in the address is replaced by the selected text.</source>
         <translation>{KeyWord} no endereço é trocado pelo texto selecionado.</translation>
     </message>
@@ -148,7 +158,7 @@
         <translation>Um processo está em execução, deseja encerrar mesmo assim?</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -166,12 +176,12 @@
         <translation>Geral</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+134"/>
         <source>Shell</source>
         <translation>Shell</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>Applies to new tabs and windows.</source>
         <translation>Vale para novas abas e janelas.</translation>
     </message>
@@ -303,7 +313,7 @@
 <context>
     <name>SettingsSideBar</name>
     <message>
-        <location filename="../src/qml/SettingsSideBar.qml" line="+30"/>
+        <location line="+35"/>
         <source>General</source>
         <translation>Geral</translation>
     </message>
@@ -380,6 +390,14 @@
         <location line="+9"/>
         <source>Settings</source>
         <translation>Configurações</translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <location filename="../src/qml/main.qml" line="+222"/>
+        <source>New Tab</source>
+        <translation>Nova aba</translation>
     </message>
 </context>
 </TS>

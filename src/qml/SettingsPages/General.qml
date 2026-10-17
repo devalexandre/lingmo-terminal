@@ -56,11 +56,10 @@ ItemPage {
         implicitHeight: rowLayout.implicitHeight + LingmoUI.Units.smallSpacing * 2
         radius: LingmoUI.Theme.smallRadius
         color: row.selected ? LingmoUI.Theme.highlightColor
-             : rowMouse.containsMouse ? Qt.rgba(LingmoUI.Theme.textColor.r, LingmoUI.Theme.textColor.g,
-                                                LingmoUI.Theme.textColor.b, 0.08)
+             : rowMouse.containsMouse ? LingmoUI.Theme.hoverColor
              : "transparent"
 
-        Behavior on color { ColorAnimation { duration: 120 } }
+        Behavior on color { ColorAnimation { duration: LingmoUI.Units.veryShortDuration } }
 
         Accessible.role: Accessible.RadioButton
         Accessible.name: row.title
@@ -89,6 +88,7 @@ ItemPage {
                     text: row.title
                     elide: Text.ElideRight
                     color: row.selected ? LingmoUI.Theme.highlightedTextColor : LingmoUI.Theme.textColor
+                    font.pointSize: LingmoUI.Units.fontBody
                 }
 
                 Label {
@@ -98,8 +98,8 @@ ItemPage {
                     color: row.selected ? Qt.rgba(LingmoUI.Theme.highlightedTextColor.r,
                                                   LingmoUI.Theme.highlightedTextColor.g,
                                                   LingmoUI.Theme.highlightedTextColor.b, 0.8)
-                                        : LingmoUI.Theme.disabledTextColor
-                    font.pointSize: LingmoUI.Theme.fontSize * 0.9
+                                        : LingmoUI.Theme.secondaryTextColor
+                    font.pointSize: LingmoUI.Units.fontCaption
                     elide: Text.ElideMiddle
                 }
             }
@@ -124,83 +124,97 @@ ItemPage {
             width: parent.width
             spacing: LingmoUI.Units.largeSpacing * 2
 
-            RoundedItem {
-                spacing: LingmoUI.Units.smallSpacing
+            LingmoUI.Card {
+                id: _card1
+                Layout.fillWidth: true
+                implicitHeight: _cardLayout1.implicitHeight + LingmoUI.Units.largeSpacing * 2
 
-                Label {
-                    text: qsTr("Shell")
-                    color: LingmoUI.Theme.disabledTextColor
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    Layout.bottomMargin: LingmoUI.Units.smallSpacing
-                    text: qsTr("Applies to new tabs and windows.")
-                    color: LingmoUI.Theme.disabledTextColor
-                    font.pointSize: LingmoUI.Theme.fontSize * 0.9
-                    wrapMode: Text.WordWrap
-                }
-
-                ShellRow {
-                    title: qsTr("System default (%1)").arg(Utils.shellName(page.defaultShell))
-                    subtitle: page.defaultShell
-                    selected: settings.shellProgram === "" && !page.otherPicked
-                    onPicked: page.chooseShell("")
-                }
-
-                Repeater {
-                    model: page.shells
-
-                    delegate: ShellRow {
-                        title: modelData.name
-                        subtitle: modelData.path
-                        selected: settings.shellProgram === modelData.path && !page.otherPicked
-                        onPicked: page.chooseShell(modelData.path)
-                    }
-                }
-
-                ShellRow {
-                    title: qsTr("Other…")
-                    subtitle: page.customShell ? settings.shellProgram : qsTr("Any program, by its full path")
-                    selected: page.otherSelected
-                    onPicked: {
-                        page.otherPicked = true
-                        otherField.text = page.customShell ? settings.shellProgram : ""
-                        otherField.forceActiveFocus()
-                    }
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: LingmoUI.Units.smallSpacing
+                ColumnLayout {
+                    id: _cardLayout1
+                    anchors.fill: parent
+                    anchors.leftMargin: _card1.padding
+                    anchors.rightMargin: _card1.padding
+                    anchors.topMargin: LingmoUI.Units.largeSpacing
+                    anchors.bottomMargin: LingmoUI.Units.largeSpacing
                     spacing: LingmoUI.Units.smallSpacing
-                    visible: page.otherSelected
 
-                    TextField {
-                        id: otherField
+                    Label {
+                        text: qsTr("Shell")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        font.weight: Font.DemiBold
+                    }
+
+                    Label {
                         Layout.fillWidth: true
-                        placeholderText: "/usr/bin/…"
-                        text: page.customShell ? settings.shellProgram : ""
-                        inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-                        onAccepted: page.applyOther()
-                        onTextChanged: otherError.visible = false
+                        Layout.bottomMargin: LingmoUI.Units.smallSpacing
+                        text: qsTr("Applies to new tabs and windows.")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        wrapMode: Text.WordWrap
                     }
 
-                    Button {
-                        text: qsTr("Use")
-                        enabled: otherField.text.trim().length > 0
-                        onClicked: page.applyOther()
+                    ShellRow {
+                        title: qsTr("System default (%1)").arg(Utils.shellName(page.defaultShell))
+                        subtitle: page.defaultShell
+                        selected: settings.shellProgram === "" && !page.otherPicked
+                        onPicked: page.chooseShell("")
                     }
-                }
 
-                Label {
-                    id: otherError
-                    Layout.fillWidth: true
-                    visible: false
-                    text: qsTr("Enter the full path of an executable file, like /usr/bin/fish.")
-                    color: LingmoUI.Theme.redColor
-                    font.pointSize: LingmoUI.Theme.fontSize * 0.9
-                    wrapMode: Text.WordWrap
+                    Repeater {
+                        model: page.shells
+
+                        delegate: ShellRow {
+                            title: modelData.name
+                            subtitle: modelData.path
+                            selected: settings.shellProgram === modelData.path && !page.otherPicked
+                            onPicked: page.chooseShell(modelData.path)
+                        }
+                    }
+
+                    ShellRow {
+                        title: qsTr("Other…")
+                        subtitle: page.customShell ? settings.shellProgram : qsTr("Any program, by its full path")
+                        selected: page.otherSelected
+                        onPicked: {
+                            page.otherPicked = true
+                            otherField.text = page.customShell ? settings.shellProgram : ""
+                            otherField.forceActiveFocus()
+                        }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.topMargin: LingmoUI.Units.smallSpacing
+                        spacing: LingmoUI.Units.smallSpacing
+                        visible: page.otherSelected
+
+                        TextField {
+                            id: otherField
+                            Layout.fillWidth: true
+                            placeholderText: "/usr/bin/…"
+                            text: page.customShell ? settings.shellProgram : ""
+                            inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                            onAccepted: page.applyOther()
+                            onTextChanged: otherError.visible = false
+                        }
+
+                        Button {
+                            text: qsTr("Use")
+                            enabled: otherField.text.trim().length > 0
+                            onClicked: page.applyOther()
+                        }
+                    }
+
+                    Label {
+                        id: otherError
+                        Layout.fillWidth: true
+                        visible: false
+                        text: qsTr("Enter the full path of an executable file, like /usr/bin/fish.")
+                        color: LingmoUI.Theme.errorColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        wrapMode: Text.WordWrap
+                    }
                 }
             }
         }

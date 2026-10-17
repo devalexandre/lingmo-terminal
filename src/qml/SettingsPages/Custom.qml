@@ -35,102 +35,133 @@ ItemPage {
             width: parent.width
             spacing: LingmoUI.Units.largeSpacing * 2
 
-            RoundedItem {
-                Label {
-                    text: qsTr("Terminal")
-                    color: LingmoUI.Theme.disabledTextColor
-                }
+            LingmoUI.Card {
+                id: _card1
+                Layout.fillWidth: true
+                implicitHeight: _cardLayout1.implicitHeight + LingmoUI.Units.largeSpacing * 2
 
-                RowLayout {
-                    Layout.fillWidth: true
-                    spacing: LingmoUI.Units.largeSpacing * 2
+                ColumnLayout {
+                    id: _cardLayout1
+                    anchors.fill: parent
+                    anchors.leftMargin: _card1.padding
+                    anchors.rightMargin: _card1.padding
+                    anchors.topMargin: LingmoUI.Units.largeSpacing
+                    anchors.bottomMargin: LingmoUI.Units.largeSpacing
+                    spacing: LingmoUI.Units.largeSpacing
 
                     Label {
-                        text: qsTr("Word Characters")
+                        text: qsTr("Terminal")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        font.weight: Font.DemiBold
                     }
 
-                    TextField {
+                    RowLayout {
                         Layout.fillWidth: true
-                        text: settings.wordCharacters
-                        onTextChanged: settings.wordCharacters = text
+                        spacing: LingmoUI.Units.largeSpacing * 2
+
+                        Label {
+                            text: qsTr("Word Characters")
+                            font.pointSize: LingmoUI.Units.fontBody
+                        }
+
+                        TextField {
+                            Layout.fillWidth: true
+                            text: settings.wordCharacters
+                            onTextChanged: settings.wordCharacters = text
+                        }
                     }
                 }
             }
 
-            RoundedItem {
-                spacing: LingmoUI.Units.smallSpacing
+            LingmoUI.Card {
+                id: _card2
+                Layout.fillWidth: true
+                implicitHeight: _cardLayout2.implicitHeight + LingmoUI.Units.largeSpacing * 2
 
-                Label {
-                    text: qsTr("Search Engines")
-                    color: LingmoUI.Theme.disabledTextColor
-                }
+                ColumnLayout {
+                    id: _cardLayout2
+                    anchors.fill: parent
+                    anchors.leftMargin: _card2.padding
+                    anchors.rightMargin: _card2.padding
+                    anchors.topMargin: LingmoUI.Units.largeSpacing
+                    anchors.bottomMargin: LingmoUI.Units.largeSpacing
+                    spacing: LingmoUI.Units.smallSpacing
 
-                Label {
-                    Layout.fillWidth: true
-                    Layout.bottomMargin: LingmoUI.Units.smallSpacing
-                    text: qsTr("{KeyWord} in the address is replaced by the selected text.")
-                    color: LingmoUI.Theme.disabledTextColor
-                    font.pointSize: LingmoUI.Theme.fontSize * 0.9
-                    wrapMode: Text.WordWrap
-                }
+                    Label {
+                        text: qsTr("Search Engines")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        font.weight: Font.DemiBold
+                    }
 
-                Repeater {
-                    model: settings.searchUrl
-
-                    delegate: RowLayout {
+                    Label {
                         Layout.fillWidth: true
-                        spacing: LingmoUI.Units.smallSpacing
+                        Layout.bottomMargin: LingmoUI.Units.smallSpacing
+                        text: qsTr("{KeyWord} in the address is replaced by the selected text.")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        wrapMode: Text.WordWrap
+                    }
 
-                        TextField {
-                            id: _name
-                            Layout.preferredWidth: LingmoUI.Units.gridUnit * 7
-                            text: modelData[0]
-                            onEditingFinished: if (text !== modelData[0]) setEngine(index, text, _address.text)
-                        }
+                    Repeater {
+                        model: settings.searchUrl
 
-                        TextField {
-                            id: _address
+                        delegate: RowLayout {
                             Layout.fillWidth: true
-                            text: modelData[1]
-                            onEditingFinished: if (text !== modelData[1]) setEngine(index, _name.text, text)
-                        }
+                            spacing: LingmoUI.Units.smallSpacing
 
-                        IconButton {
-                            iconName: "close"
-                            tipText: qsTr("Remove")
-                            onClicked: {
-                                var engines = settings.searchUrl
-                                engines.splice(index, 1)
-                                settings.searchUrl = engines
+                            TextField {
+                                id: _name
+                                Layout.preferredWidth: LingmoUI.Units.gridUnit * 7
+                                text: modelData[0]
+                                onEditingFinished: if (text !== modelData[0]) setEngine(index, text, _address.text)
+                            }
+
+                            TextField {
+                                id: _address
+                                Layout.fillWidth: true
+                                text: modelData[1]
+                                onEditingFinished: if (text !== modelData[1]) setEngine(index, _name.text, text)
+                            }
+
+                            LingmoUI.IconButton {
+                                iconName: "qrc:/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "close.svg"
+                                tipText: qsTr("Remove")
+                                onClicked: {
+                                    var engines = settings.searchUrl
+                                    engines.splice(index, 1)
+                                    settings.searchUrl = engines
+                                }
                             }
                         }
                     }
-                }
 
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: LingmoUI.Units.smallSpacing
-                    spacing: LingmoUI.Units.smallSpacing
-
-                    TextField {
-                        id: _urlname
-                        Layout.preferredWidth: LingmoUI.Units.gridUnit * 7
-                        placeholderText: qsTr("Name")
-                        onAccepted: _url.forceActiveFocus()
-                    }
-
-                    TextField {
-                        id: _url
+                    RowLayout {
                         Layout.fillWidth: true
-                        placeholderText: "https://…?q={KeyWord}"
-                        onAccepted: addEngine()
-                    }
+                        Layout.topMargin: LingmoUI.Units.smallSpacing
+                        spacing: LingmoUI.Units.smallSpacing
 
-                    IconButton {
-                        iconName: "add"
-                        tipText: qsTr("Add")
-                        enabled: _urlname.text.trim().length > 0 && _url.text.trim().length > 0
-                        onClicked: addEngine()
+                        TextField {
+                            id: _urlname
+                            Layout.preferredWidth: LingmoUI.Units.gridUnit * 7
+                            placeholderText: qsTr("Name")
+                            onAccepted: _url.forceActiveFocus()
+                        }
+
+                        TextField {
+                            id: _url
+                            Layout.fillWidth: true
+                            placeholderText: "https://…?q={KeyWord}"
+                            onAccepted: addEngine()
+                        }
+
+                        LingmoUI.IconButton {
+                            iconName: "qrc:/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "add.svg"
+                            tipText: qsTr("Add")
+                            enabled: _urlname.text.trim().length > 0 && _url.text.trim().length > 0
+                            onClicked: addEngine()
+                        }
                     }
                 }
             }

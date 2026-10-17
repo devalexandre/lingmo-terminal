@@ -26,57 +26,81 @@ ItemPage {
             width: parent.width
             spacing: LingmoUI.Units.largeSpacing * 2
 
-            RoundedItem {
-                spacing: LingmoUI.Units.smallSpacing
+            LingmoUI.Card {
+                id: _card1
+                Layout.fillWidth: true
+                implicitHeight: _cardLayout1.implicitHeight + LingmoUI.Units.largeSpacing * 2
 
-                Label {
-                    Layout.bottomMargin: LingmoUI.Units.smallSpacing
-                    text: qsTr("Bookmark")
-                    color: LingmoUI.Theme.disabledTextColor
-                }
+                ColumnLayout {
+                    id: _cardLayout1
+                    anchors.fill: parent
+                    anchors.leftMargin: _card1.padding
+                    anchors.rightMargin: _card1.padding
+                    anchors.topMargin: LingmoUI.Units.largeSpacing
+                    anchors.bottomMargin: LingmoUI.Units.largeSpacing
+                    spacing: LingmoUI.Units.smallSpacing
 
-                Repeater {
-                    model: settings.bookmark
+                    Label {
+                        Layout.bottomMargin: LingmoUI.Units.smallSpacing
+                        text: qsTr("Bookmark")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        font.weight: Font.DemiBold
+                    }
 
-                    delegate: RowLayout {
+                    LingmoUI.EmptyState {
                         Layout.fillWidth: true
-                        spacing: LingmoUI.Units.smallSpacing
+                        Layout.topMargin: LingmoUI.Units.smallSpacing
+                        Layout.bottomMargin: LingmoUI.Units.smallSpacing
+                        visible: settings.bookmark.length === 0
+                        title: qsTr("No bookmarks")
+                        text: qsTr("Folders added here appear under Bookmark in the terminal's menu.")
+                    }
 
-                        Label {
+                    Repeater {
+                        model: settings.bookmark
+
+                        delegate: RowLayout {
                             Layout.fillWidth: true
-                            text: modelData
-                            elide: Text.ElideMiddle
-                        }
+                            spacing: LingmoUI.Units.smallSpacing
 
-                        IconButton {
-                            iconName: "close"
-                            tipText: qsTr("Remove")
-                            onClicked: {
-                                var mbm = settings.bookmark
-                                mbm.splice(index, 1)
-                                settings.bookmark = mbm
+                            Label {
+                                Layout.fillWidth: true
+                                text: modelData
+                                elide: Text.ElideMiddle
+                                font.pointSize: LingmoUI.Units.fontBody
+                            }
+
+                            LingmoUI.IconButton {
+                                iconName: "qrc:/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "close.svg"
+                                tipText: qsTr("Remove")
+                                onClicked: {
+                                    var mbm = settings.bookmark
+                                    mbm.splice(index, 1)
+                                    settings.bookmark = mbm
+                                }
                             }
                         }
                     }
-                }
 
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: LingmoUI.Units.smallSpacing
-                    spacing: LingmoUI.Units.smallSpacing
-
-                    TextField {
-                        id: _dirurl
+                    RowLayout {
                         Layout.fillWidth: true
-                        placeholderText: qsTr("Directory address")
-                        onAccepted: addBookmark()
-                    }
+                        Layout.topMargin: LingmoUI.Units.smallSpacing
+                        spacing: LingmoUI.Units.smallSpacing
 
-                    IconButton {
-                        iconName: "add"
-                        tipText: qsTr("Add")
-                        enabled: _dirurl.text.trim().length > 0
-                        onClicked: addBookmark()
+                        TextField {
+                            id: _dirurl
+                            Layout.fillWidth: true
+                            placeholderText: qsTr("Directory address")
+                            onAccepted: addBookmark()
+                        }
+
+                        LingmoUI.IconButton {
+                            iconName: "qrc:/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "add.svg"
+                            tipText: qsTr("Add")
+                            enabled: _dirurl.text.trim().length > 0
+                            onClicked: addBookmark()
+                        }
                     }
                 }
             }

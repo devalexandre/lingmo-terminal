@@ -16,182 +16,245 @@ ItemPage {
             width: parent.width
             spacing: LingmoUI.Units.largeSpacing * 2
 
-            RoundedItem {
-                Label {
-                    text: qsTr("Font")
-                    color: LingmoUI.Theme.disabledTextColor
-                }
+            LingmoUI.Card {
+                id: _card1
+                Layout.fillWidth: true
+                implicitHeight: _cardLayout1.implicitHeight + LingmoUI.Units.largeSpacing * 2
 
-                GridLayout {
-                    columns: 2
-                    columnSpacing: LingmoUI.Units.largeSpacing * 2
-                    rowSpacing: LingmoUI.Units.largeSpacing
+                ColumnLayout {
+                    id: _cardLayout1
+                    anchors.fill: parent
+                    anchors.leftMargin: _card1.padding
+                    anchors.rightMargin: _card1.padding
+                    anchors.topMargin: LingmoUI.Units.largeSpacing
+                    anchors.bottomMargin: LingmoUI.Units.largeSpacing
+                    spacing: LingmoUI.Units.largeSpacing
 
                     Label {
                         text: qsTr("Font")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        font.weight: Font.DemiBold
                     }
 
-                    ComboBox {
-                        id: fontsCombobox
-                        model: Fonts.families
-                        Layout.fillWidth: true
+                    GridLayout {
+                        columns: 2
+                        columnSpacing: LingmoUI.Units.largeSpacing * 2
+                        rowSpacing: LingmoUI.Units.largeSpacing
 
-                        // Write only on a user choice, so opening the page never changes the setting
-                        onActivated: settings.fontName = currentText
-                        Component.onCompleted: currentIndex = Math.max(0, find(settings.fontName))
-                    }
+                        Label {
+                            text: qsTr("Font")
+                            font.pointSize: LingmoUI.Units.fontBody
+                        }
 
-                    Label {
-                        text: qsTr("Font Size")
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: LingmoUI.Units.largeSpacing
-
-                        Slider {
-                            id: fontSizeSlider
+                        ComboBox {
+                            id: fontsCombobox
+                            model: Fonts.families
                             Layout.fillWidth: true
-                            from: 5
-                            to: 30
-                            stepSize: 1
 
-                            Component.onCompleted: {
-                                fontSizeSlider.value = settings.fontPointSize
-                            }
-
-                            onMoved: settings.fontPointSize = fontSizeSlider.value
+                            // Write only on a user choice, so opening the page never changes the setting
+                            onActivated: settings.fontName = currentText
+                            Component.onCompleted: currentIndex = Math.max(0, find(settings.fontName))
                         }
 
                         Label {
-                            Layout.preferredWidth: LingmoUI.Units.fontMetrics.advanceWidth("00") + LingmoUI.Units.smallSpacing
-                            horizontalAlignment: Text.AlignRight
-                            text: Math.round(fontSizeSlider.value)
-                            color: LingmoUI.Theme.disabledTextColor
+                            text: qsTr("Font Size")
+                            font.pointSize: LingmoUI.Units.fontBody
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: LingmoUI.Units.largeSpacing
+
+                            Slider {
+                                id: fontSizeSlider
+                                Layout.fillWidth: true
+                                from: 5
+                                to: 30
+                                stepSize: 1
+
+                                Component.onCompleted: {
+                                    fontSizeSlider.value = settings.fontPointSize
+                                }
+
+                                onMoved: settings.fontPointSize = fontSizeSlider.value
+                            }
+
+                            Label {
+                                Layout.preferredWidth: LingmoUI.Units.fontMetrics.advanceWidth("00") + LingmoUI.Units.smallSpacing
+                                horizontalAlignment: Text.AlignRight
+                                text: Math.round(fontSizeSlider.value)
+                                color: LingmoUI.Theme.secondaryTextColor
+                                font.pointSize: LingmoUI.Units.fontBody
+                            }
                         }
                     }
                 }
             }
 
-            RoundedItem {
-                Label {
-                    text: qsTr("Color Scheme")
-                    color: LingmoUI.Theme.disabledTextColor
-                }
+            LingmoUI.Card {
+                id: _card2
+                Layout.fillWidth: true
+                implicitHeight: _cardLayout2.implicitHeight + LingmoUI.Units.largeSpacing * 2
 
-                GridLayout {
-                    columns: 2
-                    columnSpacing: LingmoUI.Units.largeSpacing * 2
-                    rowSpacing: LingmoUI.Units.largeSpacing
-
-                    Label {
-                        text: qsTr("Light Color Scheme")
-                    }
-
-                    ComboBox {
-                        id: lightthemeCombobox
-                        model: settings.colorschemes
-                        Layout.fillWidth: true
-                        currentIndex: count > 0 ? find(settings.lightcolorScheme) : -1
-                        onActivated: settings.lightcolorScheme = currentText
-                    }
+                ColumnLayout {
+                    id: _cardLayout2
+                    anchors.fill: parent
+                    anchors.leftMargin: _card2.padding
+                    anchors.rightMargin: _card2.padding
+                    anchors.topMargin: LingmoUI.Units.largeSpacing
+                    anchors.bottomMargin: LingmoUI.Units.largeSpacing
+                    spacing: LingmoUI.Units.largeSpacing
 
                     Label {
-                        text: qsTr("Dark Color Scheme")
+                        text: qsTr("Color Scheme")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        font.weight: Font.DemiBold
                     }
 
-                    ComboBox {
-                        id: darkthemeCombobox
-                        model: settings.colorschemes
-                        Layout.fillWidth: true
-                        currentIndex: count > 0 ? find(settings.darkcolorScheme) : -1
-                        onActivated: settings.darkcolorScheme = currentText
+                    GridLayout {
+                        columns: 2
+                        columnSpacing: LingmoUI.Units.largeSpacing * 2
+                        rowSpacing: LingmoUI.Units.largeSpacing
+
+                        Label {
+                            text: qsTr("Light Color Scheme")
+                            font.pointSize: LingmoUI.Units.fontBody
+                        }
+
+                        ComboBox {
+                            id: lightthemeCombobox
+                            model: settings.colorschemes
+                            Layout.fillWidth: true
+                            currentIndex: count > 0 ? find(settings.lightcolorScheme) : -1
+                            onActivated: settings.lightcolorScheme = currentText
+                        }
+
+                        Label {
+                            text: qsTr("Dark Color Scheme")
+                            font.pointSize: LingmoUI.Units.fontBody
+                        }
+
+                        ComboBox {
+                            id: darkthemeCombobox
+                            model: settings.colorschemes
+                            Layout.fillWidth: true
+                            currentIndex: count > 0 ? find(settings.darkcolorScheme) : -1
+                            onActivated: settings.darkcolorScheme = currentText
+                        }
                     }
                 }
             }
 
-            RoundedItem {
-                Label {
-                    text: qsTr("Keyboard Cursor")
-                    color: LingmoUI.Theme.disabledTextColor
-                }
+            LingmoUI.Card {
+                id: _card3
+                Layout.fillWidth: true
+                implicitHeight: _cardLayout3.implicitHeight + LingmoUI.Units.largeSpacing * 2
 
-                GridLayout {
-                    columns: 2
-                    columnSpacing: LingmoUI.Units.largeSpacing * 2
-                    rowSpacing: LingmoUI.Units.largeSpacing
-
-                    Label {
-                        text: qsTr("Shape")
-                    }
-
-                    TabBar {
-                        Layout.fillWidth: true
-                        currentIndex: settings.keyboardCursorShape
-                        onCurrentIndexChanged: settings.keyboardCursorShape = currentIndex
-
-                        TabButton {
-                            text: "▐"
-                        }
-
-                        TabButton {
-                            text: "▂"
-                        }
-
-                        TabButton {
-                            text: "|"
-                        }
-                    }
+                ColumnLayout {
+                    id: _cardLayout3
+                    anchors.fill: parent
+                    anchors.leftMargin: _card3.padding
+                    anchors.rightMargin: _card3.padding
+                    anchors.topMargin: LingmoUI.Units.largeSpacing
+                    anchors.bottomMargin: LingmoUI.Units.largeSpacing
+                    spacing: LingmoUI.Units.largeSpacing
 
                     Label {
-                        text: qsTr("Blinking")
+                        text: qsTr("Keyboard Cursor")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        font.weight: Font.DemiBold
                     }
 
-                    Switch {
-                        Layout.alignment: Qt.AlignRight
-                        checked: settings.blinkingCursor
-                        onCheckedChanged: settings.blinkingCursor = checked
+                    GridLayout {
+                        columns: 2
+                        columnSpacing: LingmoUI.Units.largeSpacing * 2
+                        rowSpacing: LingmoUI.Units.largeSpacing
+
+                        Label {
+                            text: qsTr("Shape")
+                            font.pointSize: LingmoUI.Units.fontBody
+                        }
+
+                        LingmoUI.SegmentedControl {
+                            Layout.fillWidth: true
+                            fillWidth: true
+                            model: ["▐", "▂", "|"]
+                            currentIndex: settings.keyboardCursorShape
+                            onActivated: (index) => settings.keyboardCursorShape = index
+                        }
+
+                        Label {
+                            text: qsTr("Blinking")
+                            font.pointSize: LingmoUI.Units.fontBody
+                        }
+
+                        Switch {
+                            Layout.alignment: Qt.AlignRight
+                            checked: settings.blinkingCursor
+                            onCheckedChanged: settings.blinkingCursor = checked
+                        }
                     }
                 }
             }
 
-            RoundedItem {
-                Label {
-                    text: qsTr("Window effects")
-                    color: LingmoUI.Theme.disabledTextColor
-                }
+            LingmoUI.Card {
+                id: _card4
+                Layout.fillWidth: true
+                implicitHeight: _cardLayout4.implicitHeight + LingmoUI.Units.largeSpacing * 2
 
-                GridLayout {
-                    columns: 2
-                    columnSpacing: LingmoUI.Units.largeSpacing * 2
-                    rowSpacing: LingmoUI.Units.largeSpacing
+                ColumnLayout {
+                    id: _cardLayout4
+                    anchors.fill: parent
+                    anchors.leftMargin: _card4.padding
+                    anchors.rightMargin: _card4.padding
+                    anchors.topMargin: LingmoUI.Units.largeSpacing
+                    anchors.bottomMargin: LingmoUI.Units.largeSpacing
+                    spacing: LingmoUI.Units.largeSpacing
 
                     Label {
-                        text: qsTr("Transparency")
+                        text: qsTr("Window effects")
+                        color: LingmoUI.Theme.secondaryTextColor
+                        font.pointSize: LingmoUI.Units.fontCaption
+                        font.weight: Font.DemiBold
                     }
 
-                    Slider {
-                        id: transparencySlider
-                        Layout.fillWidth: true
-                        from: 0.1
-                        to: 1.0
-                        stepSize: 0.05
+                    GridLayout {
+                        columns: 2
+                        columnSpacing: LingmoUI.Units.largeSpacing * 2
+                        rowSpacing: LingmoUI.Units.largeSpacing
 
-                        Component.onCompleted: {
-                            transparencySlider.value = settings.opacity
+                        Label {
+                            text: qsTr("Transparency")
+                            font.pointSize: LingmoUI.Units.fontBody
                         }
 
-                        onMoved: settings.opacity = transparencySlider.value
-                    }
+                        Slider {
+                            id: transparencySlider
+                            Layout.fillWidth: true
+                            from: 0.1
+                            to: 1.0
+                            stepSize: 0.05
 
-                    Label {
-                        text: qsTr("Window Blur")
-                    }
+                            Component.onCompleted: {
+                                transparencySlider.value = settings.opacity
+                            }
 
-                    Switch {
-                        Layout.alignment: Qt.AlignRight
-                        checked: settings.blur
-                        onCheckedChanged: settings.blur = checked
+                            onMoved: settings.opacity = transparencySlider.value
+                        }
+
+                        Label {
+                            text: qsTr("Window Blur")
+                            font.pointSize: LingmoUI.Units.fontBody
+                        }
+
+                        Switch {
+                            Layout.alignment: Qt.AlignRight
+                            checked: settings.blur
+                            onCheckedChanged: settings.blur = checked
+                        }
                     }
                 }
             }
